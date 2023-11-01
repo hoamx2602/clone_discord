@@ -32,7 +32,7 @@ const PendingInvitationsList = () => {
     <MainContainer>
       {DUMMY_INVITATIONS.map((invitation) => (
         <PendingInvitationsListItem
-          key={invitation.id}
+          key={invitation._id}
           id={invitation.id}
           username={invitation.senderId.username}
           mail={invitation.senderId.mail}
