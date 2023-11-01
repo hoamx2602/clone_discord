@@ -4,8 +4,12 @@ import { useState, useEffect } from 'react';
 import RegisterPageInput from './RegisterPageInput';
 import RegisterPageFooter from './RegisterPageFooter';
 import { validateRegisterForm } from '../../shared/utils/validators';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { getActions } from '../../store/actions/authAction';
 
-function RegisterPage() {
+function RegisterPage({ register }) {
+  const history = useHistory();
   const [mail, setMail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -13,9 +17,12 @@ function RegisterPage() {
   const [isFormValid, setIsFormValid] = useState(false);
 
   const handleRegister = () => {
-    console.log(mail);
-    console.log(username);
-    console.log(password);
+    const userDetails = {
+      mail,
+      password,
+      username,
+    };
+    register(userDetails, history);
   };
 
   useEffect(() => {
@@ -48,4 +55,10 @@ function RegisterPage() {
   );
 }
 
-export default RegisterPage;
+const mapActionsToProps = (dispatch) => {
+  return {
+    ...getActions(dispatch),
+  };
+};
+
+export default connect(null, mapActionsToProps)(RegisterPage);

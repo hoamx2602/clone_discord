@@ -4,8 +4,12 @@ import LoginPageFooter from './LoginPageFooter';
 import LoginPageHeader from './LoginPageHeader';
 import LoginPageInput from './LoginPageInput';
 import { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { getActions } from '../../store/actions/authAction';
+import { useHistory } from 'react-router-dom';
 
-function LoginPage() {
+function LoginPage({ login }) {
+  const history = useHistory();
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
   const [isFormValid, setIsFormValid] = useState(false);
@@ -15,9 +19,11 @@ function LoginPage() {
   }, [mail, password, setIsFormValid]);
 
   const handleLogin = (event) => {
-    console.log(mail);
-    console.log(password);
-    console.log('LOGIN');
+    const userDetails = {
+      mail,
+      password,
+    };
+    login(userDetails, history);
   };
   return (
     <AuthBox>
@@ -33,4 +39,10 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+const mapActionsToProps = (dispatch) => {
+  return {
+    ...getActions(dispatch),
+  };
+};
+
+export default connect(null, mapActionsToProps)(LoginPage);

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseUrl: 'http://localhost:5002',
+  baseURL: 'http://localhost:5002/api',
   timeout: 1000,
 });
 
@@ -11,18 +11,18 @@ export const login = async (data) => {
   } catch (exception) {
     return {
       error: true,
-      exception: error,
+      exception: exception,
     };
   }
 };
 
-export const register = async (exception) => {
+export const register = async (data) => {
   try {
     return await apiClient.post('/auth/register', data);
-  } catch (error) {
+  } catch (exception) {
     return {
       error: true,
-      exception: error,
+      exception: exception,
     };
   }
 };
