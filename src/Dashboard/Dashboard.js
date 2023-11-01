@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { logout } from '../shared/utils/auth';
 import { connect } from 'react-redux';
 import { getActions } from '../store/actions/authAction';
+import { connectWithSocketServer } from '../realtimeCommunication/socketConnection';
 
 const Wrapper = styled('div')({
   width: '100%',
@@ -22,6 +23,7 @@ function Dashboard({ setUserDetails }) {
       logout();
     } else {
       setUserDetails(JSON.parse(userDetails));
+      connectWithSocketServer();
     }
   }, []);
   return (
