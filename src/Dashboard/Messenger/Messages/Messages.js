@@ -1,8 +1,8 @@
 import { styled } from '@mui/system';
 import { connect } from 'react-redux';
-import DUMMY_MESSAGES from './DUMMY_MESSAGES';
 import Message from './Message';
 import MessagesHeader from './MessagesHeader';
+import DateSeparator from './DateSeparator';
 
 const MainContainer = styled('div')({
   height: 'calc(100% - 60px)',
@@ -34,21 +34,33 @@ const Messages = ({ chosenChatDetails, messages }) => {
         const sameDay =
           index > 0 &&
           convertDateToHumanReadable(new Date(message.date), 'dd/mm/yy') ===
-          convertDateToHumanReadable(
+            convertDateToHumanReadable(
               new Date(messages[index - 1].date),
               'dd/mm/yy'
             );
 
-            console.log('DEBUG=================message.date', convertDateToHumanReadable(new Date(message.date), 'dd/mm/yy'));
         return (
-          <Message
-            key={message._id}
-            content={message.content}
-            username={message.author.username}
-            date={convertDateToHumanReadable(new Date(message.date), 'dd/mm/yy')}
-            sameAuthor={sameAuthor}
-            sameDay={sameDay}
-          />
+          <div key={message._id} style={{ width: '97%' }}>
+            {(!sameDay || index === 0) && (
+              <DateSeparator
+                date={convertDateToHumanReadable(
+                  new Date(message.date),
+                  'dd/mm/yy'
+                )}
+              />
+            )}
+            <Message
+              key={message._id}
+              content={message.content}
+              username={message.author.username}
+              date={convertDateToHumanReadable(
+                new Date(message.date),
+                'dd/mm/yy'
+              )}
+              sameAuthor={sameAuthor}
+              sameDay={sameDay}
+            />
+          </div>
         );
       })}
     </MainContainer>
