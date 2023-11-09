@@ -1,9 +1,11 @@
 import { Button } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
+import * as roomHandler from '../../realtimeCommunication/roomHandler';
 
 const CreateRoomButton = () => {
   const createNewRoomHandler = () => {
     // creating a room and sending info to the server about this.
+    roomHandler.createNewRoom();
   };
   return (
     <Button
