@@ -38,6 +38,6 @@ export const updateActiveRooms = (data) => {
 
 export const joinRoom = (roomId) => {
   store.dispatch(setRoomDetails({ roomId }));
-  store.dispatch(openRoom(false, true));
+  store.dispatch(setOpenRoom(false, true));
   socketConnection.joinRoom({ roomId });
 };
