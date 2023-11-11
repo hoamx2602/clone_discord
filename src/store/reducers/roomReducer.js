@@ -33,11 +33,17 @@ const reducer = (state = initState, action) => {
         activeRooms: action.activeRooms,
       };
 
-      case roomActions.SET_LOCAL_STREAMS:
-        return {
-          ...state,
-          localStream: action.localStream,
-        };
+    case roomActions.SET_LOCAL_STREAMS:
+      return {
+        ...state,
+        localStream: action.localStream,
+      };
+
+    case roomActions.SET_AUDIO_ONLY:
+      return {
+        ...state,
+        audioOnly: action.audioOnly,
+      };
     default:
       return state;
   }
