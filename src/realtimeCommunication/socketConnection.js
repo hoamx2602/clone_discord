@@ -7,6 +7,7 @@ import {
 } from '../store/actions/friendsAction';
 import { updateDirectChatHistoryIfActive } from '../shared/utils/chat';
 import { newRoomCreated, updateActiveRooms } from './roomHandler';
+import * as webRTCHandler from './webRTCHandler';
 
 let socket = null;
 
@@ -52,7 +53,12 @@ export const connectWithSocketServer = (userDetails) => {
   });
 
   socket.on('conn-prepare', (data) => {
-    console.log('DEBUG=================data', data);
+    const { connUserSocketId } = data;
+    webRTCHandler.prepareNewPeerConnection(data, false);
+
+    socket.emit('conn-init', {
+      connUserSocketId,
+    });
   });
 };
 
