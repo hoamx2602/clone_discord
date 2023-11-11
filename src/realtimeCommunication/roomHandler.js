@@ -13,7 +13,7 @@ export const createNewRoom = () => {
     socketConnection.createNewRoom();
   };
 
-  webRTCHandler.getLocalStreamPreview(true, successCallbackFunc);
+  webRTCHandler.getLocalStreamPreview(false, successCallbackFunc);
 };
 
 export const newRoomCreated = (data) => {
