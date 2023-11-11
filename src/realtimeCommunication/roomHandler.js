@@ -5,7 +5,7 @@ import {
 } from '../store/actions/roomAction';
 import store from '../store/store';
 import * as socketConnection from './socketConnection';
-import * as webRTCHandler from './webRTCHandler'
+import * as webRTCHandler from './webRTCHandler';
 
 export const createNewRoom = () => {
   const successCallbackFunc = () => {
@@ -13,7 +13,7 @@ export const createNewRoom = () => {
     socketConnection.createNewRoom();
   };
 
-  webRTCHandler.getLocalStreamPreview(false, successCallbackFunc);
+  webRTCHandler.getLocalStreamPreview(true, successCallbackFunc);
 };
 
 export const newRoomCreated = (data) => {
@@ -41,9 +41,13 @@ export const updateActiveRooms = (data) => {
 };
 
 export const joinRoom = (roomId) => {
-  store.dispatch(setRoomDetails({ roomId }));
-  store.dispatch(setOpenRoom(false, true));
-  socketConnection.joinRoom({ roomId });
+  const successCallbackFunc = () => {
+    store.dispatch(setRoomDetails({ roomId }));
+    store.dispatch(setOpenRoom(false, true));
+    socketConnection.joinRoom({ roomId });
+  };
+
+  webRTCHandler.getLocalStreamPreview(true, successCallbackFunc);
 };
 
 export const leaveRoom = () => {
