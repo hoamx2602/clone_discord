@@ -50,6 +50,10 @@ export const connectWithSocketServer = (userDetails) => {
   socket.on('active-rooms', (data) => {
     updateActiveRooms(data);
   });
+
+  socket.on('conn-prepare', (data) => {
+    console.log('DEBUG=================data', data);
+  });
 };
 
 export const sendDirectMessage = (data) => {
