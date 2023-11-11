@@ -2,6 +2,7 @@ import {
   setOpenRoom,
   setRoomDetails,
   setActiveRooms,
+  setLocalStream,
 } from '../store/actions/roomAction';
 import store from '../store/store';
 import * as socketConnection from './socketConnection';
@@ -53,6 +54,12 @@ export const joinRoom = (roomId) => {
 
 export const leaveRoom = () => {
   const roomId = store.getState().room.roomDetails.roomId;
+
+  const localStream = store.getState().room.localStream;
+  if (localStream) {
+    localStream.getTracks().forEach((track) => track.stop());
+    store.dispatch(setLocalStream(null));
+  }
 
   socketConnection.leaveRoom({ roomId });
   store.dispatch(setRoomDetails(null));
